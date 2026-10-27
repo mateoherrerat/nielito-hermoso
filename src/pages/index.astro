@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AsciiHeart from '../components/AsciiHeart';
+import { generateAsciiStars } from '../utils/starsAscii';
+
+const stars = generateAsciiStars(55);
+---
+
+<Layout title="Nielito <3">
+  <!-- ASCII Ambient Starfield -->
+  <div class="ascii-starfield" aria-hidden="true">
+    {stars.map((star, idx) => (
+      <span
+        key={idx}
+        class="ascii-star"
+        style={{
+          left: `${star.x}%`,
+          top: `${star.y}%`,
+          animationDelay: star.delay,
+          animationDuration: star.duration,
+          opacity: star.opacity,
+        }}
+      >
+        {star.char}
+      </span>
+    ))}
+  </div>
+
+  <!-- ASCII Corner Coordinates -->
+  <div class="ascii-corner ascii-corner-tl" aria-hidden="true">+ - ·</div>
+  <div class="ascii-corner ascii-corner-tr" aria-hidden="true">· - +</div>
+  <div class="ascii-corner ascii-corner-br" aria-hidden="true">· - +</div>
+
+  <!-- Mensaje de Mateo en texto plano (abajo a la izquierda) -->
+  <div class="mateo-message">
+    {'Te amo demasiado mi bebe preciosa.. de Mateo <3'}
+  </div>
+
+  <main class="ascii-viewport">
+    <AsciiHeart />
+    <footer class="ascii-caption" aria-label="Dedicatoria ASCII para Daniela">
+      <span class="ascii-decor">·  +  ✦</span>
+      <span class="ascii-tag">[ D A N I E L A ]</span>
+      <span class="ascii-decor">✦  +  ·</span>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  .ascii-starfield {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .ascii-star {
+    position: absolute;
+    font-family: var(--font-ascii);
+    font-size: clamp(0.75rem, 1.2vw, 1.05rem);
+    color: var(--ink-contour);
+    text-shadow: 0 0 6px rgba(255, 179, 198, 0.7);
+    animation: star-shimmer infinite ease-in-out alternate;
+    user-select: none;
+    transition: color 200ms ease, transform 200ms ease;
+  }
+
+  .ascii-corner {
+    position: fixed;
+    font-family: var(--font-ascii);
+    font-size: clamp(0.65rem, 1vw, 0.85rem);
+    color: rgba(255, 96, 144, 0.45);
+    text-shadow: 0 0 6px rgba(255, 42, 95, 0.25);
+    letter-spacing: 0.25em;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ascii-corner-tl {
+    top: clamp(0.75rem, 2vw, 1.5rem);
+    left: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  .ascii-corner-tr {
+    top: clamp(0.75rem, 2vw, 1.5rem);
+    right: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  .mateo-message {
+    position: fixed;
+    bottom: max(0.85rem, env(safe-area-inset-bottom, 0.85rem));
+    font-family: var(--font-ascii);
+    color: rgba(255, 194, 212, 0.92);
+    text-shadow:
+      0 0 8px rgba(255, 96, 144, 0.55),
+      0 0 16px rgba(255, 42, 95, 0.3);
+    letter-spacing: 0.04em;
+    user-select: text;
+    z-index: 5;
+    line-height: 1.25;
+    text-align: center;
+    left: 0.75rem;
+    right: 0.75rem;
+    font-size: clamp(0.68rem, 2.7vw, 0.82rem);
+    pointer-events: auto;
+  }
+
+  @media (min-width: 641px) {
+    .mateo-message {
+      left: clamp(1rem, 2vw, 1.75rem);
+      right: auto;
+      text-align: left;
+      font-size: clamp(0.72rem, 0.95vw, 0.85rem);
+      white-space: nowrap;
+    }
+  }
+
+  .ascii-corner-br {
+    bottom: clamp(0.75rem, 2vw, 1.5rem);
+    right: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  @media (max-width: 640px) {
+    .ascii-corner {
+      display: none;
+    }
+  }
+
+  .ascii-caption {
+    margin-top: clamp(0.6rem, 1.8vh, 1.25rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-family: var(--font-ascii);
+    font-size: clamp(0.65rem, 2.4vw, 0.85rem);
+    letter-spacing: 0.15em;
+    user-select: text;
+    z-index: 2;
+  }
+
+  .ascii-decor {
+    color: var(--ink-mid);
+    opacity: 0.75;
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 6px rgba(255, 96, 144, 0.6);
+  }
+
+  .ascii-tag {
+    color: var(--ink-contour);
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    padding: 0.15em 0.6em;
+    border: 1px solid rgba(255, 96, 144, 0.35);
+    border-radius: 4px;
+    background: rgba(255, 42, 95, 0.06);
+    box-shadow: 0 0 12px rgba(255, 42, 95, 0.2);
+    text-shadow: 0 0 6px rgba(255, 179, 198, 0.6);
+    transition: all 180ms ease;
+    cursor: default;
+  }
+
+  .ascii-tag:hover {
+    color: var(--ink-active);
+    border-color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 42, 95, 0.18);
+    box-shadow: 0 0 20px rgba(255, 96, 144, 0.5);
+    text-shadow: 0 0 10px #ffffff;
+  }
+
+  @keyframes star-shimmer {
+    0% {
+      opacity: 0.15;
+      transform: scale(0.85);
+    }
+    100% {
+      opacity: 0.85;
+      transform: scale(1.15);
+      color: var(--ink-active);
+      text-shadow: 0 0 8px rgba(255, 240, 243, 0.8);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ascii-star {
+      animation: none !important;
+    }
+  }
+</style>

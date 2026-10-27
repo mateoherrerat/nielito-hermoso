@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T20:18:00-05:00",
+  "title": "Design System: Daniela ASCII Heart",
+  "extensions": {
+    "colorMeta": {
+      "ink-core": {
+        "role": "primary",
+        "displayName": "Heart Core Crimson",
+        "canonical": "#ff4d6d",
+        "tonalRamp": ["#3b0813", "#5e0d1f", "#85122c", "#ad1739", "#d62851", "#ff4d6d", "#ff8fa3", "#fff0f3"]
+      },
+      "ink-mid": {
+        "role": "secondary",
+        "displayName": "Mid-Band Rose Coral",
+        "canonical": "#ff758f",
+        "tonalRamp": ["#400d18", "#661426", "#8c1c35", "#b32443", "#d94666", "#ff758f", "#ffb3c1", "#fff0f3"]
+      },
+      "ink-contour": {
+        "role": "tertiary",
+        "displayName": "Contour Blossom Pink",
+        "canonical": "#ffb3c1",
+        "tonalRamp": ["#45141d", "#6e202f", "#962c40", "#bf3952", "#e6677f", "#ffb3c1", "#ffd6de", "#fff5f7"]
+      },
+      "ink-highlight": {
+        "role": "primary",
+        "displayName": "Word Highlight Ivory",
+        "canonical": "#fff0f3",
+        "tonalRamp": ["#332629", "#523d42", "#73565c", "#967179", "#ba8f98", "#dec0c6", "#f5dce1", "#fff0f3"]
+      },
+      "bg-obsidian": {
+        "role": "neutral",
+        "displayName": "Obsidian Matte Ground",
+        "canonical": "#0b0a0e",
+        "tonalRamp": ["#0b0a0e", "#16141c", "#24212e", "#353142", "#4b465c", "#67617a", "#8d86a1", "#bdb8cc"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "ASCII Contour & Active Cell",
+        "purpose": "Outer silhouette cells and active 7-letter DANIELA word highlight."
+      },
+      "body": {
+        "displayName": "ASCII Core Cell",
+        "purpose": "Interior cells of the 57x25 heart lattice."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Smooth character highlight and radial luminance pulse."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "390px" },
+      { "name": "lg", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "ASCII Heart Word Cell",
+      "kind": "custom",
+      "refersTo": "ascii-cell-core",
+      "description": "Interactive 7-character DANIELA segment inside the monospace heart lattice.",
+      "html": "<pre class=\"ds-ascii-sample\"><span class=\"ds-cell ds-contour\">D</span><span class=\"ds-cell ds-mid\">A</span><span class=\"ds-cell ds-core\">N</span><span class=\"ds-cell ds-core\">I</span><span class=\"ds-cell ds-core\">E</span><span class=\"ds-cell ds-mid\">L</span><span class=\"ds-cell ds-contour\">A</span></pre>",
+      "css": ".ds-ascii-sample { background: #0b0a0e; padding: 16px 24px; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; letter-spacing: 0.04em; } .ds-cell { display: inline-block; transition: color 180ms cubic-bezier(0.16, 1, 0.3, 1), transform 220ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-contour { color: #ffb3c1; font-weight: 700; } .ds-mid { color: #ff758f; font-weight: 600; } .ds-core { color: #ff4d6d; font-weight: 400; } .ds-ascii-sample:hover .ds-cell { color: #fff0f3; font-weight: 700; transform: translateY(-1px) scale(1.08); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Precision Papercut ASCII Lattice",
+    "overview": "El sistema visual transforma una cuadrícula monoespaciada de 57×25 celdas en una escultura tipográfica pura donde la única materia prima es la secuencia continua D-A-N-I-E-L-A. Rechaza explícitamente cualquier simulación de ventana de terminal, barras de título falsas o prompts de consola, permitiendo que la geometría matemática del corazón habite sola sobre el lienzo.",
+    "keyCharacteristics": [
+      "Retícula sagrada de 57 columnas por 25 filas sin salto de línea (white-space: pre).",
+      "Escalado fluido gobernado por unidades de consulta de contenedor (cqi) con respaldo en vw.",
+      "Volumen por capas de color y peso tipográfico (400, 600, 700) en lugar de sombras.",
+      "Iluminación interactiva por palabra completa (D-A-N-I-E-L-A) al pasar el cursor o tocar cualquier letra."
+    ],
+    "rules": [
+      {
+        "name": "The Pure Lattice Rule",
+        "body": "Ningún color se aplica a bordes de contenedores, tarjetas o marcos de ventana; el color existe exclusivamente en los glifos de DANIELA y en las superficies nativas del navegador.",
+        "section": "colors"
+      },
+      {
+        "name": "The Non-Reflowing Row Rule",
+        "body": "El tamaño de fuente escala con el contenedor (2.65cqi) dentro de clamp(0.34rem, 2.65cqi, 1.22rem) para que las 57 columnas jamás sufran salto de línea ni requieran desplazamiento horizontal.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do preservar white-space: pre y la proporción monoespaciada para que la simetría axial del corazón sea exacta.",
+      "Do iniciar cada segmento horizontal con DANIELA para que el nombre sea inmediatamente legible en cada fila y lóbulo del corazón.",
+      "Do respetar prefers-reduced-motion: reduce desactivando las animaciones de pulso y transformación."
+    ],
+    "donts": [
+      "Don't agregar marcos de ventana de terminal falsos, botones de semáforo tipo macOS ni prompts simulados.",
+      "Don't romper la cuadrícula de 57 columnas con saltos de línea automáticos."
+    ]
+  }
+}
